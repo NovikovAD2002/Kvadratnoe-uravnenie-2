@@ -1,5 +1,59 @@
+//---------------------------------------------------------
+//!Reshenie kvadratnogo uravneniya vida ax^2+bx+c=0
+//!
+//!@param [in]  a a-coefficient
+//!@param [in]  b b-coefficient
+//!@param [in]  c c-coefficient
+//!@param [out] x1 x1-perviy otvet
+//!@param [out] x2 x2-vtoroy otvet
+//!
+//!@return      Otvety
+//!
+//!@note        Pri besconechnom kolicestve variantov
+//!             resheniya, programma vosvrashaet 3
+//---------------------------------------------------------
+
+
 #include <stdio.h>
 #include <math.h>
+
+
+float test_1(float a,float b, float c)
+{
+  if((b==0)&&(c==0)&&(a==0))
+    printf("test_1 complete");
+  return 1;
+}
+float test_2(float a,float b)
+{
+  if((b!=0)&&(a==0))
+    printf("test_2 complete");
+  return 2;
+}
+float test_3(float a,float b, float c)
+{
+  if((b==0)&&(c!=0)&&(a==0))
+    printf("test_3 complete");
+  return 3;
+}
+float test_4(float a,float b, float c)
+{
+  if(b*b-4*a*c<0)
+    printf("test_4 complete");
+  return 4;
+}
+float test_5(float a,float b, float c)
+{
+  if(b*b-4*a*c==0)
+    printf("test_5 complete");
+  return 5;
+}
+float test_6(float a,float b, float c)
+{
+  if(b*b-4*a*c>0)
+    printf("test_6 complete");
+  return 6;
+}
 
 
 float Scet(float a, float b, float c,
@@ -19,7 +73,7 @@ float Scet(float a, float b, float c,
     }
   }
 
-  else  //a!=0
+  else    //a!=0
   {
     if(d<0)
       return 0;
@@ -44,19 +98,35 @@ int main()
   int k;
   printf("Please, enter coefficients"
          "of the equation.");
-  scanf("%f%f%f",&a,&b,&c);
+  int scanf_return = scanf("%f%f%f",&a,&b,&c);
+
+  if(scanf_return!=3)
+  {
+    printf("error");
+    return 0;
+  }
 
   k=Scet(a,b,c,&x1,&x2);
 
   switch( k )
   {
-    case 0: printf("Korney net");
+    case 0:
+      printf("Korney net\n");
+    break;
+    case 1: printf("Odin koren = %f\n",x1);
       break;
-    case 1: printf("Odin koren = %f",x1);
+    case 2: printf("Dva kornya = %f and %f\n",x1,x2);
       break;
-    case 2: printf("Dva kornya = %f and %f",x1,x2);
-      break;
-    case 3: printf("Korney besconecno mnogo");
+    case 3: printf("Korney besconecno mnogo\n");
       break;
   }
+  #ifdef TEST
+    k=test_1(a,b,c);
+    k=test_2(a,b);
+    k=test_3(a,b,c);
+    k=test_4(a,b,c);
+    k=test_5(a,b,c);
+    k=test_6(a,b,c);
+  #endif
+  return 0;
 }
