@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <math.h>
+
+
 //---------------------------------------------------------
 //!Reshenie kvadratnogo uravneniya vida ax^2+bx+c=0
 //!
@@ -13,51 +17,7 @@
 //!             resheniya, programma vosvrashaet 3
 //---------------------------------------------------------
 
-
-#include <stdio.h>
-#include <math.h>
-
-
-float test_1(float a,float b, float c)
-{
-  if((b==0)&&(c==0)&&(a==0))
-    printf("test_1 complete");
-  return 1;
-}
-float test_2(float a,float b)
-{
-  if((b!=0)&&(a==0))
-    printf("test_2 complete");
-  return 2;
-}
-float test_3(float a,float b, float c)
-{
-  if((b==0)&&(c!=0)&&(a==0))
-    printf("test_3 complete");
-  return 3;
-}
-float test_4(float a,float b, float c)
-{
-  if(b*b-4*a*c<0)
-    printf("test_4 complete");
-  return 4;
-}
-float test_5(float a,float b, float c)
-{
-  if(b*b-4*a*c==0)
-    printf("test_5 complete");
-  return 5;
-}
-float test_6(float a,float b, float c)
-{
-  if(b*b-4*a*c>0)
-    printf("test_6 complete");
-  return 6;
-}
-
-
-float Scet(float a, float b, float c,
-           float* x1, float* x2)
+float Scet(float a, float b, float c, float* x1, float* x2)
 {
   float d;
   d=b*b-4*a*c;
@@ -92,6 +52,133 @@ float Scet(float a, float b, float c,
 }
 
 
+//---------------------------------------------------------
+//!Test dlya proverki situazii 0 0 0
+//!
+//!@param [in]  a a-coefficient
+//!@param [in]  b b-coefficient
+//!@param [in]  c c-coefficient
+//!
+//!@return      Nomer testa
+//!
+//---------------------------------------------------------
+
+float test_1(float a, float b, float c)
+{
+  float x1, x2;
+  if((b==0)&&(c==0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==3))
+    printf("test_1 complete");
+  else
+    printf("error");
+  return 1;
+}
+
+//---------------------------------------------------------
+//!Test dlya proverki situazii 0 ? ?
+//!
+//!@param [in]  a a-coefficient
+//!@param [in]  b b-coefficient
+//!@param [in]  c c-coefficient
+//!
+//!@return      Nomer testa
+//!
+//---------------------------------------------------------
+
+float test_2(float a,float b,float c)
+{
+  float x1, x2;
+  if((b!=0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==1))
+    printf("test_2 complete");
+  else
+    printf("error");
+  return 2;
+}
+
+//---------------------------------------------------------
+//!Test dlya proverki situazii 0 0 ?
+//!
+//!@param [in]  a a-coefficient
+//!@param [in]  b b-coefficient
+//!@param [in]  c c-coefficient
+//!
+//!@return      Nomer testa
+//!
+//---------------------------------------------------------
+
+float test_3(float a,float b, float c)
+{
+  float x1, x2;
+  if((b==0)&&(c!=0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==0))
+    printf("test_3 complete");
+  else
+    printf("error");
+  return 3;
+}
+
+//---------------------------------------------------------
+//!Test dlya proverki situazii, kogda dis < 0
+//!
+//!@param [in]  a a-coefficient
+//!@param [in]  b b-coefficient
+//!@param [in]  c c-coefficient
+//!
+//!@return      Nomer testa
+//!
+//---------------------------------------------------------
+
+float test_4(float a,float b, float c)
+{
+  float x1, x2;
+  if((b*b-4*a*c<0)&&(Scet(a,b,c,&x1,&x2)==0))
+    printf("test_4 complete");
+  else
+    printf("error");
+  return 4;
+}
+
+//---------------------------------------------------------
+//!Test dlya proverki situazii, kogda dis = 0
+//!
+//!@param [in]  a a-coefficient
+//!@param [in]  b b-coefficient
+//!@param [in]  c c-coefficient
+//!
+//!@return      Nomer testa
+//!
+//---------------------------------------------------------
+
+float test_5(float a,float b, float c)
+{
+  float x1, x2;
+  if((b*b-4*a*c==0)&&(Scet(a,b,c,&x1,&x2)==1))
+    printf("test_5 complete");
+  else
+    printf("error");
+  return 5;
+}
+
+//---------------------------------------------------------
+//!Test dlya proverki situazii, kogda dis > 0
+//!
+//!@param [in]  a a-coefficient
+//!@param [in]  b b-coefficient
+//!@param [in]  c c-coefficient
+//!
+//!@return      Nomer testa
+//!
+//---------------------------------------------------------
+
+float test_6(float a,float b, float c)
+{
+  float x1, x2;
+  if((b*b-4*a*c>0)&&(Scet(a,b,c,&x1,&x2)==2))
+    printf("test_6 complete");
+  else
+    printf("error");
+  return 6;
+}
+
+
 int main()
 {
   float a,b,c,x1,x2;
@@ -110,23 +197,24 @@ int main()
 
   switch( k )
   {
-    case 0:
-      printf("Korney net\n");
+    case 0: printf("Korney net\n");
+            if(a==0)
+              k=test_3(a,b,c);
+            else
+              k=test_4(a,b,c);
     break;
     case 1: printf("Odin koren = %f\n",x1);
+            if(a==0)
+              k=test_2(a,b,c);
+            else
+              k=test_5(a,b,c);
       break;
     case 2: printf("Dva kornya = %f and %f\n",x1,x2);
+            k=test_6(a,b,c);
       break;
     case 3: printf("Korney besconecno mnogo\n");
+            k=test_1(a,b,c);
       break;
   }
-  #ifdef TEST
-    k=test_1(a,b,c);
-    k=test_2(a,b);
-    k=test_3(a,b,c);
-    k=test_4(a,b,c);
-    k=test_5(a,b,c);
-    k=test_6(a,b,c);
-  #endif
   return 0;
 }
