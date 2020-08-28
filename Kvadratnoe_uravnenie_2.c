@@ -66,10 +66,10 @@ float Scet(float a, float b, float c, float* x1, float* x2)
 float test_1(float a, float b, float c)
 {
   float x1, x2;
-  if((b==0)&&(c==0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==3))
-    printf("test_1 complete");
+  if(((b==0)&&(c==0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==3))||((b!=0)||(c!=0)||(a!=0)))
+    printf("test_1 complete\n");
   else
-    printf("error");
+    printf("error\n");
   return 1;
 }
 
@@ -87,10 +87,10 @@ float test_1(float a, float b, float c)
 float test_2(float a,float b,float c)
 {
   float x1, x2;
-  if((b!=0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==1))
-    printf("test_2 complete");
+  if(((b!=0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==1))||(a!=0)||(b==0))
+    printf("test_2 complete\n");
   else
-    printf("error");
+    printf("error\n");
   return 2;
 }
 
@@ -108,10 +108,10 @@ float test_2(float a,float b,float c)
 float test_3(float a,float b, float c)
 {
   float x1, x2;
-  if((b==0)&&(c!=0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==0))
-    printf("test_3 complete");
+  if(((b==0)&&(c!=0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==0))||(b!=0)||(c==0)||(a!=0))
+    printf("test_3 complete\n");
   else
-    printf("error");
+    printf("error\n");
   return 3;
 }
 
@@ -129,10 +129,10 @@ float test_3(float a,float b, float c)
 float test_4(float a,float b, float c)
 {
   float x1, x2;
-  if((b*b-4*a*c<0)&&(Scet(a,b,c,&x1,&x2)==0))
-    printf("test_4 complete");
+  if(((b*b-4*a*c<0)&&(Scet(a,b,c,&x1,&x2)==0))||(b*b-4*a*c>=0))
+    printf("test_4 complete\n");
   else
-    printf("error");
+    printf("error\n");
   return 4;
 }
 
@@ -150,10 +150,10 @@ float test_4(float a,float b, float c)
 float test_5(float a,float b, float c)
 {
   float x1, x2;
-  if((b*b-4*a*c==0)&&(Scet(a,b,c,&x1,&x2)==1))
-    printf("test_5 complete");
+  if(((b*b-4*a*c==0)&&(Scet(a,b,c,&x1,&x2)==1))||(b*b-4*a*c!=0))
+    printf("test_5 complete\n");
   else
-    printf("error");
+    printf("error\n");
   return 5;
 }
 
@@ -171,10 +171,10 @@ float test_5(float a,float b, float c)
 float test_6(float a,float b, float c)
 {
   float x1, x2;
-  if((b*b-4*a*c>0)&&(Scet(a,b,c,&x1,&x2)==2))
-    printf("test_6 complete");
+  if(((b*b-4*a*c>0)&&(Scet(a,b,c,&x1,&x2)==2))||(b*b-4*a*c<=0))
+    printf("test_6 complete\n");
   else
-    printf("error");
+    printf("error\n");
   return 6;
 }
 
@@ -197,32 +197,22 @@ int main()
 
   switch( k )
   {
-    case 0: printf("Korney net\n");
-          #ifdef TEST
-            if(a==0)
-              k=test_3(a,b,c);
-            else
-              k=test_4(a,b,c);
-          #endif
+    case 0: printf("Korney net\n\n");
     break;
-    case 1: printf("Odin koren = %f\n",x1);
-          #ifdef TEST
-            if(a==0)
-              k=test_2(a,b,c);
-            else
-              k=test_5(a,b,c);
-          #endif
-      break;
-    case 2: printf("Dva kornya = %f and %f\n",x1,x2);
-            #ifdef TEST
-              k=test_6(a,b,c);
-            #endif
-      break;
-    case 3: printf("Korney besconecno mnogo\n");
-            #ifdef TEST
-              k=test_1(a,b,c);
-            #endif
-      break;
+    case 1: printf("Odin koren = %f\n\n",x1);
+    break;
+    case 2: printf("Dva kornya = %f and %f\n\n",x1,x2);
+    break;
+    case 3: printf("Korney besconecno mnogo\n\n");
+    break;
   }
+  #ifdef TEST
+    k=test_1(a,b,c);
+    k=test_2(a,b,c);
+    k=test_3(a,b,c);
+    k=test_4(a,b,c);
+    k=test_5(a,b,c);
+    k=test_6(a,b,c);
+  #endif // TEST
   return 0;
 }
