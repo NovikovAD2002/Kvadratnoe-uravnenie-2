@@ -198,22 +198,30 @@ int main()
   switch( k )
   {
     case 0: printf("Korney net\n");
+          #ifdef TEST
             if(a==0)
               k=test_3(a,b,c);
             else
               k=test_4(a,b,c);
+          #endif
     break;
     case 1: printf("Odin koren = %f\n",x1);
+          #ifdef TEST
             if(a==0)
               k=test_2(a,b,c);
             else
               k=test_5(a,b,c);
+          #endif
       break;
     case 2: printf("Dva kornya = %f and %f\n",x1,x2);
-            k=test_6(a,b,c);
+            #ifdef TEST
+              k=test_6(a,b,c);
+            #endif
       break;
     case 3: printf("Korney besconecno mnogo\n");
-            k=test_1(a,b,c);
+            #ifdef TEST
+              k=test_1(a,b,c);
+            #endif
       break;
   }
   return 0;
