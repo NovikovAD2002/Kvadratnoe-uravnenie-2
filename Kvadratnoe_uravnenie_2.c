@@ -63,10 +63,10 @@ float Scet(float a, float b, float c, float* x1, float* x2)
 //!
 //---------------------------------------------------------
 
-float test_1(float a, float b, float c)
+float test_1()
 {
   float x1, x2;
-  if(((b==0)&&(c==0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==3))||((b!=0)||(c!=0)||(a!=0)))
+  if(Scet(0,0,0,&x1,&x2)==3)
     printf("test_1 complete\n");
   else
     printf("error\n");
@@ -84,10 +84,10 @@ float test_1(float a, float b, float c)
 //!
 //---------------------------------------------------------
 
-float test_2(float a,float b,float c)
+float test_2()
 {
   float x1, x2;
-  if(((b!=0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==1))||(a!=0)||(b==0))
+  if(Scet(0,2,-4,&x1,&x2)==1)
     printf("test_2 complete\n");
   else
     printf("error\n");
@@ -105,10 +105,10 @@ float test_2(float a,float b,float c)
 //!
 //---------------------------------------------------------
 
-float test_3(float a,float b, float c)
+float test_3()
 {
   float x1, x2;
-  if(((b==0)&&(c!=0)&&(a==0)&&(Scet(a,b,c,&x1,&x2)==0))||(b!=0)||(c==0)||(a!=0))
+  if(Scet(0,0,5,&x1,&x2)==0)
     printf("test_3 complete\n");
   else
     printf("error\n");
@@ -126,10 +126,10 @@ float test_3(float a,float b, float c)
 //!
 //---------------------------------------------------------
 
-float test_4(float a,float b, float c)
+float test_4()
 {
   float x1, x2;
-  if(((b*b-4*a*c<0)&&(Scet(a,b,c,&x1,&x2)==0))||(b*b-4*a*c>=0))
+  if(Scet(100,1,100,&x1,&x2)==0)
     printf("test_4 complete\n");
   else
     printf("error\n");
@@ -147,10 +147,10 @@ float test_4(float a,float b, float c)
 //!
 //---------------------------------------------------------
 
-float test_5(float a,float b, float c)
+float test_5()
 {
   float x1, x2;
-  if(((b*b-4*a*c==0)&&(Scet(a,b,c,&x1,&x2)==1))||(b*b-4*a*c!=0))
+  if(Scet(1,2,1,&x1,&x2)==1)
     printf("test_5 complete\n");
   else
     printf("error\n");
@@ -168,10 +168,10 @@ float test_5(float a,float b, float c)
 //!
 //---------------------------------------------------------
 
-float test_6(float a,float b, float c)
+float test_6()
 {
   float x1, x2;
-  if(((b*b-4*a*c>0)&&(Scet(a,b,c,&x1,&x2)==2))||(b*b-4*a*c<=0))
+  if(Scet(1,-3,2,&x1,&x2)==2)
     printf("test_6 complete\n");
   else
     printf("error\n");
@@ -207,12 +207,12 @@ int main()
     break;
   }
   #ifdef TEST
-    k=test_1(a,b,c);
-    k=test_2(a,b,c);
-    k=test_3(a,b,c);
-    k=test_4(a,b,c);
-    k=test_5(a,b,c);
-    k=test_6(a,b,c);
+    k=test_1();
+    k=test_2();
+    k=test_3();
+    k=test_4();
+    k=test_5();
+    k=test_6();
   #endif // TEST
   return 0;
 }
